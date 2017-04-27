@@ -1,4 +1,4 @@
-package io.grafiksal.model;
+package agh.przemek.model;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package io.grafiksal;
+package agh.przemek;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
