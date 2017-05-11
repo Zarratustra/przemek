@@ -1,10 +1,16 @@
 package agh.przemek.model;
 
-import lombok.*;
-
-import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -14,8 +20,7 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long patientID;
-
+    private long id;
 
     @Column(nullable = false)
     private String firstName;
@@ -23,12 +28,14 @@ public class Patient {
     @Column(nullable = false)
     private String lastName;
 
-    private LocalDate birthDate;
+    // User ID from the authentication provider
+    @Column(nullable = false)
+    private String uid;
 
-    public Patient(String firstName, String lastName, LocalDate birthDate) {
+    public Patient(String firstName, String lastName, String uid) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthDate = birthDate;
+        this.uid = uid;
     }
 
     @Override
@@ -38,7 +45,7 @@ public class Patient {
 
             return Objects.equals(firstName, t.firstName) &&
                     Objects.equals(lastName, t.lastName) &&
-                    Objects.equals(birthDate, t.birthDate);
+                    Objects.equals(uid, t.uid);
         }
 
         return false;
@@ -46,8 +53,6 @@ public class Patient {
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName,lastName,birthDate);
+        return Objects.hash(firstName,lastName,uid);
     }
-
-
 }
