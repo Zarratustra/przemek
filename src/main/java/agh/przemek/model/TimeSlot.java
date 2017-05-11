@@ -30,12 +30,10 @@ public class TimeSlot {
 	@Column(nullable = false)
 	private LocalDateTime endTime;
 	
-	@Column(nullable = false)
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Doctor doctor;
 	
-	@Column(nullable = true)
-	@ManyToOne
+	@ManyToOne(optional = true)
 	private Patient takenBy;
 
 	public TimeSlot(LocalDateTime startTime, LocalDateTime endTime, Doctor doctor, Patient takenBy) {
