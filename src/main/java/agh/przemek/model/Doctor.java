@@ -31,7 +31,7 @@ public class Doctor {
 	@Column(nullable = false)
 	private String lastName;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<Specialization> specializations;
 
 	public Doctor(String firstName, String lastName, Set<Specialization> specializations) {

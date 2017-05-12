@@ -1,0 +1,24 @@
+
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/">Przemek</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#doctors">Lekarze</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class=" well text-center">
+            <h1>Lekarze</h1>
+        </div>
+        <div id ="doctors" class="list-group row">
+            <a ng-repeat="t in doctors" ng-href="#doctor/{{t.id}}"
+               class="list-group-item col-xs-4">{{t.nameWithSpec}}</a>
+        </div>
+
+    </div>
+

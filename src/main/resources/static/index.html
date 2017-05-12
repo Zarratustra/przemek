@@ -4,42 +4,29 @@
     <meta charset="UTF-8">
     <title>Hej hej</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/lib/moment-with-locales.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+    <!--<script src="js/lib/ui-bootstrap-2.5.0.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script src="js/lib/calendar.js"></script>
+    <script src="js/grafikApp.js"></script>
+    <script src="js/mainCtrl.js"></script>
+    <script src="js/doctorsCtrl.js"></script>
+    <script src="js/doctorCtrl.js"></script>
+    <script src="js/dialogCtrl.js"></script>
+
 </head>
 
-<body>
+<body ng-app="grafikApp">
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">Przemek</a>
-        </div>
-        <ul class="nav navbar-nav">
+    <ng-view></ng-view>
 
-        </ul>
-    </div>
-</nav>
-
-<div class="jumbotron text-center">
-    <h1>Przemek</h1>
-    <p>Produkt Rejestrujący Zapotrzebowanie na Ekspertyzę Medyczną Eliminując Kolejki</p>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4 well text-center">
-
-            <a role="button" class="btn  btn-default btn-block" href="#"> <h1>Recepcja</h1></a>
-
-        </div>
-        <div class="col-sm-4 well text-center">
-            <a role="button" class="btn  btn-default btn-block" href="#"> <h1>Pacjent</h1></a>
-
-        </div>
-        <div class="col-sm-4 well text-center">
-            <a role="button" class="btn  btn-default btn-block" href="#"> <h1>Lekarz</h1></a>
-        </div>
-    </div>
-
-</div>
 </body>
 </html>

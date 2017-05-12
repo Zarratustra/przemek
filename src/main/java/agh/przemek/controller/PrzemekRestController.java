@@ -29,7 +29,7 @@ public class PrzemekRestController {
 	@Autowired
 	private PatientRepository patientRepository;
 
-	@RequestMapping(method = RequestMethod.GET, path = "/specializations")
+	@RequestMapping(method = RequestMethod.GET, path = "rest/specializations")
 	public Collection<Specialization> getSpecializations() {
 		List<Specialization> list = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class PrzemekRestController {
 		return list;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/specializations/{id}")
+	@RequestMapping(method = RequestMethod.GET, path = "rest/specializations/{id}")
 	public Specialization getSpecialization(@PathVariable(name = "id") long id) {
 		Specialization spec = specializationRepository.findOne(id);
 		if (spec == null) {
@@ -48,7 +48,7 @@ public class PrzemekRestController {
 		return spec;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/specializations/{specId}/doctors")
+	@RequestMapping(method = RequestMethod.GET, path = "rest/specializations/{specId}/doctors")
 	public Collection<Doctor> getDoctorsBySpecializaion(@PathVariable(name = "specId") long specId) {
 		Specialization spec = specializationRepository.findOne(specId);
 		if (spec == null) {
@@ -58,7 +58,7 @@ public class PrzemekRestController {
 		return doctorRepository.findBySpecializations(spec);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/doctors")
+	@RequestMapping(method = RequestMethod.GET, path = "rest/doctors")
 	public Collection<Doctor> getDoctors() {
 		List<Doctor> list = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class PrzemekRestController {
 		return list;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/doctors/{id}")
+	@RequestMapping(method = RequestMethod.GET, path = "rest/doctors/{id}")
 	public Doctor getDoctor(@PathVariable(name = "id") long id) {
 		Doctor doc = doctorRepository.findOne(id);
 		if (doc == null) {
@@ -77,7 +77,7 @@ public class PrzemekRestController {
 		return doc;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/doctors/{docId}/slots")
+	@RequestMapping(method = RequestMethod.GET, path = "rest/doctors/{docId}/slots")
 	public Collection<TimeSlot> getTimeSlots(@PathVariable(name = "docId") long docId,
 			@RequestParam(name = "type", defaultValue = "all") String slotType) {
 		Doctor doc = doctorRepository.findOne(docId);
@@ -97,7 +97,7 @@ public class PrzemekRestController {
 		return slots;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/doctors/{docId}/slots/{slotId}")
+	@RequestMapping(method = RequestMethod.GET, path = "rest/doctors/{docId}/slots/{slotId}")
 	public TimeSlot getTimeSlot(@PathVariable(name = "docId") long docId, @PathVariable(name = "slotId") long slotId) {
 		Doctor doc = doctorRepository.findOne(docId);
 		if (doc == null) {
@@ -112,7 +112,7 @@ public class PrzemekRestController {
 		return slot;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, path = "/doctors/{docId}/slots/{slotId}/taken_by")
+	@RequestMapping(method = RequestMethod.PUT, path = "rest/doctors/{docId}/slots/{slotId}/taken_by")
 	public void makeAppointment(@PathVariable(name = "docId") long docId, @PathVariable(name = "slotId") long slotId,
 			@RequestBody long patientId) {
 		Doctor doc = doctorRepository.findOne(docId);
@@ -134,7 +134,7 @@ public class PrzemekRestController {
 		timeSlotRepository.save(slot);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, path = "/doctors/{docId}/slots/{slotId}/taken_by")
+	@RequestMapping(method = RequestMethod.DELETE, path = "rest/doctors/{docId}/slots/{slotId}/taken_by")
 	public void cancelAppointment(@PathVariable(name = "docId") long docId,
 			@PathVariable(name = "slotId") long slotId) {
 		Doctor doc = doctorRepository.findOne(docId);
