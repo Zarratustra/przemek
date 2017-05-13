@@ -1,1 +1,20 @@
-<p>Siemka</p>
+<div class="modal-header">
+    <h1>{{title}}</h1>
+    <h2>Lekarz {{doctor.fullName}}</h2>
+    <h2>{{date}}</h2>
+</div>
+<div class="modal-body">
+    <h3>Dane pacjenta</h3>
+    <div class="form-group">
+        <label for="usr">Imię</label>
+        <input type="text" ng-model="patient.firstName" ng-readonly="slot.takenBy" class="form-control" id="usr">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Nazwisko</label>
+        <input type="text" ng-model="patient.lastName" ng-readonly="slot.takenBy" class="form-control" id="pwd">
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-6 text-center"><button ng-if="!slot.takenBy" type="button" class="btn btn-primary" ng-click="acceptModal()">Zarezerwuj</button></div>
+    <div class="col-sm-6 text-center"><button type="button" class="btn btn-default" ng-click="cancelModal()">Anuluj</button></div>
+</div>

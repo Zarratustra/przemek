@@ -6,7 +6,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a ng-href="#doctors" >Lekarze</a></li>
-            <li class="active"><a ng-href="#doctor/{{doctorId}}" >{{doctorName}}</a></li>
+            <li class="active"><a ng-href="#doctor/{{doctorId}}" >{{doctor.fullName}}</a></li>
 
         </ul>
     </div>
@@ -15,7 +15,7 @@
 <div class="container">
 
     <div>
-        <h1>{{nameWithSpec}} - dostępne terminy wizyt</h1>
+        <h1>{{doctor.nameWithSpec}} - dostępne terminy wizyt</h1>
     </div>
 
     <div ui-calendar="uiConfig.calendar" calendar="myCalendar" class="span12 calendar" ng-model="eventSources"></div>

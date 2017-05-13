@@ -48,7 +48,7 @@ public class PrzemekApplication {
 				Specialization spec2 = new Specialization("oncologist");
 				specializationRepository.save(spec2);
 				
-				Doctor doc1 = new Doctor("Abab", "Babacki", new HashSet<>());
+				Doctor doc1 = new Doctor("Andrzej", "Lejkowski", new HashSet<>());
 				doc1.getSpecializations().add(spec1);
 				doctorRepository.save(doc1);
 

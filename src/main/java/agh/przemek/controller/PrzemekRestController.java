@@ -114,7 +114,7 @@ public class PrzemekRestController {
 
 	@RequestMapping(method = RequestMethod.PUT, path = "rest/doctors/{docId}/slots/{slotId}/taken_by")
 	public void makeAppointment(@PathVariable(name = "docId") long docId, @PathVariable(name = "slotId") long slotId,
-			@RequestBody long patientId) {
+			@RequestBody Patient patient) {
 		Doctor doc = doctorRepository.findOne(docId);
 		if (doc == null) {
 			throw new ResourceNotFoundException("No doctor with id: " + docId);
@@ -125,10 +125,7 @@ public class PrzemekRestController {
 			throw new ResourceNotFoundException("No time slot with id: " + slotId);
 		}
 
-		Patient patient = patientRepository.findOne(patientId);
-		if (patient == null) {
-			throw new BadRequestException("No patient with id: " + patientId);
-		}
+		patientRepository.save(patient);
 
 		slot.setTakenBy(patient);
 		timeSlotRepository.save(slot);
