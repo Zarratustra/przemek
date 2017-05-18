@@ -20,6 +20,7 @@ import agh.przemek.model.TimeSlot;
 @RestController
 public class PrzemekRestController {
 
+
 	@Autowired
 	private SpecializationRepository specializationRepository;
 	@Autowired
