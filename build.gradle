@@ -9,12 +9,32 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('se.transmode.gradle:gradle-docker:1.2')
 	}
 }
 
 apply plugin: 'java'
-apply plugin: 'war'
 apply plugin: 'spring-boot'
+apply plugin: 'docker'
+
+group = 'agh'
+
+jar {
+	baseName = 'przemek'
+	version =  '0.1.0'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+	push = true
+	applicationName = jar.baseName
+	dockerfile = file('src/main/docker/Dockerfile')
+	doFirst {
+		copy {
+			from jar
+			into stageDir
+		}
+	}
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
