@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,9 +35,13 @@ public class PrzemekRestController {
 	private PatientRepository patientRepository;
 	@Autowired
 	private CredentialsRepository credentialsRepository;
+	@Autowired
+	private AuthorizationService authService;
 
 	@RequestMapping(method = RequestMethod.GET, path = "rest/specializations")
-	public Collection<Specialization> getSpecializations() {
+	public Collection<Specialization> getSpecializations(@RequestHeader(name = "Authorization") String authHeader) {
+		authService.basicAuthorization(authHeader);
+
 		List<Specialization> list = new ArrayList<>();
 
 		specializationRepository.findAll().forEach(list::add);
@@ -45,7 +50,10 @@ public class PrzemekRestController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "rest/specializations/{id}")
-	public Specialization getSpecialization(@PathVariable(name = "id") long id) {
+	public Specialization getSpecialization(@PathVariable(name = "id") long id,
+			@RequestHeader(name = "Authorization") String authHeader) {
+		authService.basicAuthorization(authHeader);
+
 		Specialization spec = specializationRepository.findOne(id);
 		if (spec == null) {
 			throw new ResourceNotFoundException("No specialization with id: " + id);
@@ -55,7 +63,10 @@ public class PrzemekRestController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "rest/specializations/{specId}/doctors")
-	public Collection<Doctor> getDoctorsBySpecializaion(@PathVariable(name = "specId") long specId) {
+	public Collection<Doctor> getDoctorsBySpecializaion(@PathVariable(name = "specId") long specId,
+			@RequestHeader(name = "Authorization") String authHeader) {
+		authService.basicAuthorization(authHeader);
+
 		Specialization spec = specializationRepository.findOne(specId);
 		if (spec == null) {
 			throw new ResourceNotFoundException("No specialization with id: " + specId);
@@ -65,7 +76,9 @@ public class PrzemekRestController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "rest/doctors")
-	public Collection<Doctor> getDoctors() {
+	public Collection<Doctor> getDoctors(@RequestHeader(name = "Authorization") String authHeader) {
+		authService.basicAuthorization(authHeader);
+
 		List<Doctor> list = new ArrayList<>();
 
 		doctorRepository.findAll().forEach(list::add);
@@ -74,7 +87,10 @@ public class PrzemekRestController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "rest/doctors/{id}")
-	public Doctor getDoctor(@PathVariable(name = "id") long id) {
+	public Doctor getDoctor(@PathVariable(name = "id") long id,
+			@RequestHeader(name = "Authorization") String authHeader) {
+		authService.basicAuthorization(authHeader);
+
 		Doctor doc = doctorRepository.findOne(id);
 		if (doc == null) {
 			throw new ResourceNotFoundException("No doctor with id: " + id);
@@ -85,7 +101,10 @@ public class PrzemekRestController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "rest/doctors/{docId}/slots")
 	public Collection<TimeSlot> getTimeSlots(@PathVariable(name = "docId") long docId,
-			@RequestParam(name = "type", defaultValue = "all") String slotType) {
+			@RequestParam(name = "type", defaultValue = "all") String slotType,
+			@RequestHeader(name = "Authorization") String authHeader) {
+		authService.basicAuthorization(authHeader);
+
 		Doctor doc = doctorRepository.findOne(docId);
 		if (doc == null) {
 			throw new ResourceNotFoundException("No doctor with id: " + docId);
@@ -104,7 +123,10 @@ public class PrzemekRestController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "rest/doctors/{docId}/slots/{slotId}")
-	public TimeSlot getTimeSlot(@PathVariable(name = "docId") long docId, @PathVariable(name = "slotId") long slotId) {
+	public TimeSlot getTimeSlot(@PathVariable(name = "docId") long docId, @PathVariable(name = "slotId") long slotId,
+			@RequestHeader(name = "Authorization") String authHeader) {
+		authService.basicAuthorization(authHeader);
+
 		Doctor doc = doctorRepository.findOne(docId);
 		if (doc == null) {
 			throw new ResourceNotFoundException("No doctor with id: " + docId);
@@ -131,7 +153,9 @@ public class PrzemekRestController {
 
 	@RequestMapping(method = RequestMethod.PUT, path = "rest/doctors/{docId}/slots/{slotId}/taken_by")
 	public void makeAppointment(@PathVariable(name = "docId") long docId, @PathVariable(name = "slotId") long slotId,
-			@RequestBody Patient patient) {
+			@RequestBody Patient patient, @RequestHeader(name = "Authorization") String authHeader) {
+		authService.basicAuthorization(authHeader);
+
 		Doctor doc = doctorRepository.findOne(docId);
 		if (doc == null) {
 			throw new ResourceNotFoundException("No doctor with id: " + docId);
@@ -150,7 +174,9 @@ public class PrzemekRestController {
 
 	@RequestMapping(method = RequestMethod.DELETE, path = "rest/doctors/{docId}/slots/{slotId}/taken_by")
 	public void cancelAppointment(@PathVariable(name = "docId") long docId,
-			@PathVariable(name = "slotId") long slotId) {
+			@PathVariable(name = "slotId") long slotId, @RequestHeader(name = "Authorization") String authHeader) {
+		authService.basicAuthorization(authHeader);
+
 		Doctor doc = doctorRepository.findOne(docId);
 		if (doc == null) {
 			throw new ResourceNotFoundException("No doctor with id: " + docId);

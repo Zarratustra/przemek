@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Base64;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -51,5 +52,20 @@ public class Credentials {
 	@Override
 	public int hashCode() {
 		return Objects.hash(username);
+	}
+	
+	public static Credentials fromBase64(String base64) {
+		Base64.Decoder decoder = Base64.getDecoder();
+		String[] creds = new String(decoder.decode(base64)).split(":");
+		if (creds.length != 2) {
+			throw new IllegalArgumentException("Malformed credentials");
+		}
+		
+		return new Credentials(creds[0], creds[1]);
+	}
+
+	@Override
+	public String toString() {
+		return getUsername() + ":" + getPassword();
 	}
 }
