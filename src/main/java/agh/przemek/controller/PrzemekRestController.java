@@ -4,18 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import agh.przemek.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import agh.przemek.model.Doctor;
-import agh.przemek.model.Patient;
-import agh.przemek.model.Specialization;
-import agh.przemek.model.TimeSlot;
 
 @RestController
 public class PrzemekRestController {
@@ -111,6 +109,17 @@ public class PrzemekRestController {
 		}
 
 		return slot;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, path = "rest/authenticate")
+	public ResponseEntity<Object> authenticate(@RequestBody Credentials credentials) {
+		System.out.println("Dostauem "+credentials.getUsername()+" "+credentials.getPassword());
+
+		if(credentials.getUsername().equals("przemek")){
+			return new ResponseEntity<>( HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>( HttpStatus.FORBIDDEN);
+		}
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, path = "rest/doctors/{docId}/slots/{slotId}/taken_by")

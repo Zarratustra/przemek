@@ -42,10 +42,10 @@ public class PrzemekApplication {
 
 			@Override
 			public void run(ApplicationArguments args) throws Exception {
-				Specialization spec1 = new Specialization("pediatrician");
+				Specialization spec1 = new Specialization("pediatra");
 				specializationRepository.save(spec1);
 
-				Specialization spec2 = new Specialization("oncologist");
+				Specialization spec2 = new Specialization("gastrolog");
 				specializationRepository.save(spec2);
 				
 				Doctor doc1 = new Doctor("Andrzej", "Lejkowski", new HashSet<>());
