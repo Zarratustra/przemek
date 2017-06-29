@@ -16,7 +16,12 @@ public class AuthorizationService {
 			throw new ForbiddenException("Not supported authorization method");
 		}
 
-		Credentials creds = Credentials.fromBase64(authHeader.split(" ")[1]);
+		Credentials creds = null;
+		try {
+			creds = Credentials.fromBase64(authHeader.split(" ")[1]);
+		} catch (IllegalArgumentException e) {
+			throw new ForbiddenException("Malformed credentials");
+		}
 		if (!credentialsRepository.exists(creds)) {
 			throw new ForbiddenException("Not authorized credentials: " + creds);
 		}
