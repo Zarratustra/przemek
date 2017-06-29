@@ -9,7 +9,7 @@ import agh.przemek.model.Credentials;
 public class AuthorizationService {
 
 	@Autowired
-	private CredentialsRepository credentialsRepository;
+	private UserRepository userRepository;
 
 	public void basicAuthorization(String authHeader) throws ForbiddenException {
 		if (!authHeader.startsWith("Basic")) {
@@ -22,7 +22,7 @@ public class AuthorizationService {
 		} catch (IllegalArgumentException e) {
 			throw new ForbiddenException("Malformed credentials");
 		}
-		if (!credentialsRepository.exists(creds)) {
+		if (!userRepository.exists(creds)) {
 			throw new ForbiddenException("Not authorized credentials: " + creds);
 		}
 	}
