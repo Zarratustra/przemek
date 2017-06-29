@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import agh.przemek.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import agh.przemek.model.Credentials;
-import agh.przemek.model.Doctor;
-import agh.przemek.model.Patient;
-import agh.przemek.model.Specialization;
-import agh.przemek.model.TimeSlot;
 
 @RestController
 public class PrzemekRestController {
@@ -138,6 +133,21 @@ public class PrzemekRestController {
 		}
 
 		return slot;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, path = "rest/register")
+	public ResponseEntity<Object> register(@RequestBody User user) {
+		System.out.println("Dostałem do zarejestrowania " + user.getUsername() + " " + user.getPassword());
+
+		//tutaj dodanie usera do bazy
+
+		if (true) {
+			//jeśli dodanie powiodlo sie
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			//jesli sie nie powiodlo - np. istnieje juz user o takim username
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "rest/authenticate")
