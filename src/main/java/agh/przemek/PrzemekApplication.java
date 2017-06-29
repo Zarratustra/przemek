@@ -10,10 +10,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import agh.przemek.controller.CredentialsRepository;
 import agh.przemek.controller.DoctorRepository;
 import agh.przemek.controller.PatientRepository;
 import agh.przemek.controller.SpecializationRepository;
 import agh.przemek.controller.TimeSlotRepository;
+import agh.przemek.model.Credentials;
 import agh.przemek.model.Doctor;
 import agh.przemek.model.Patient;
 import agh.przemek.model.Specialization;
@@ -39,6 +41,8 @@ public class PrzemekApplication {
 			private SpecializationRepository specializationRepository;
 			@Autowired
 			private TimeSlotRepository timeSlotRepository;
+			@Autowired
+			private CredentialsRepository credentialsRepository;
 
 			@Override
 			public void run(ApplicationArguments args) throws Exception {
@@ -64,6 +68,8 @@ public class PrzemekApplication {
 						LocalDateTime.now().plusDays(2).plusMinutes(15), doc2, null));
 
 				patientRepository.save(new Patient("Test", "Subject", "xxx"));
+
+				credentialsRepository.save(new Credentials("przemek", "przemek"));
 			}
 		};
 	}
