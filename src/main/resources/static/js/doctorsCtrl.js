@@ -1,4 +1,5 @@
-app.controller("doctorsCtrl", function($scope,$http) {
+app.controller("doctorsCtrl", ['$scope', '$http', '$location', 'AuthenticationService',
+    function($scope,$http, $location, AuthenticationService) {
     $http.get("/rest/doctors")
         .then(function(response) {
             $scope.doctors = response.data;
@@ -10,4 +11,9 @@ app.controller("doctorsCtrl", function($scope,$http) {
             });
             console.log($scope.doctors);
         });
-});
+
+    $scope.logout = function(){
+        AuthenticationService.ClearCredentials();
+        $location.path('/login');
+    };
+}]);
